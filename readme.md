@@ -1,6 +1,22 @@
 Eclipse Mosquitto
 =================
 
+requires openssl
+Build with:
+
+LDFLAGS="-L/usr/local/ssl/ -L/usr/local/ -L/usr/local/bin/ -Wl,-rpath,/usr/local/ssl/,-rpath,/usr/local/lib/,--export-dynamic" LIBS="-ldl" CC=/c/opt/gcc-4.6.0/bin/gcc CXX=/c//opt/gcc-4.6.0/bin/g++ make WITH_DOCS=no
+
+
+
+MAKEFILE doesn't consider LDFLAGS therefore execute command manuel when it fails with: ld cannot find -lssl (switch to src folder)
+
+cc  -Wl -L/usr/local/ssl/ -L/usr/local/ssl/lib -L/usr/local/ -L/usr/local/bin/ -Wl,-rpath,/usr/local/ssl/,-rpath,/usr/local/lib/ mosquitto.o alias_mosq.o bridge.o conf.o conf_includedir.o context.o database.o handle_auth.o handle_connack.o handle_connect.o handle_disconnect.o handle_ping.o handle_pubackcomp.o handle_publish.o handle_pubrec.o handle_pubrel.o handle_suback.o handle_subscribe.o handle_unsuback.o handle_unsubscribe.o logging.o loop.o memory_mosq.o net.o net_mosq.o net_mosq_ocsp.o packet_datatypes.o packet_mosq.o property_broker.o property_mosq.o persist_read.o persist_read_v234.o persist_read_v5.o persist_write.o persist_write_v5.o plugin.o read_handle.o security.o security_default.o send_auth.o send_connack.o send_connect.o send_disconnect.o send_mosq.o send_publish.o send_suback.o send_subscribe.o send_unsuback.o send_unsubscribe.o service.o session_expiry.o signals.o subs.o sys_tree.o time_mosq.o tls_mosq.o utf8_mosq.o util_mosq.o util_topic.o websockets.o will_delay.o will_mosq.o -o mosquitto  -ldl -lm -lrt -lssl -lcrypto    
+
+Continue with `make` 
+
+
+
+
 Mosquitto is an open source implementation of a server for version 5.0, 3.1.1,
 and 3.1 of the MQTT protocol. It also includes a C and C++ client library, and
 the `mosquitto_pub` and `mosquitto_sub` utilities for publishing and
